@@ -1,0 +1,32 @@
+{% extends 'core/main.html' %}
+{% block content %}
+<div class="register-page">
+    <div class="register-page-title">
+        <h3>
+            Register
+        </h3>
+        <hr>
+    </div>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="messages-box">
+        {{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
+    <div class="register-form">
+        <form method="POST" action="">
+            {% csrf_token %}
+            <label for="username">Username:</label><br>
+            {{form.username}}<br><br>
+            <label for="email">Email:</label><br>
+            {{form.email}}<br><br>
+            <label for="password1">Password:</label><br>
+            {{form.password1}}<br><br>
+            <label for="password2">Confirm password:</label><br>
+            {{form.password2}}<br><br>
+            <input type="submit" value="Register" />
+        </form>
+    </div>
+</div>
+{% endblock content %}

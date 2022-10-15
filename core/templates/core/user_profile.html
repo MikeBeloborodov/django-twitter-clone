@@ -1,0 +1,38 @@
+{% extends 'core/main.html' %}
+{% block content %}
+<div class="user-profile-page">
+    <div class="user-profile-title">
+        <h3>
+            {% if request.user.username == user.username %}
+            My profile
+            {% else %}
+            User @{{user.username}} profile
+            {% endif %}
+        </h3>
+        <hr>
+    </div>
+    <div class="tweet-form-and-feed">
+        <div class="new-tweet-form">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <textarea name="body" cols="40" rows="10" placeholder="Enter a new tweet..."></textarea><br><br>
+                <input type="submit" value="Tweet" />
+            </form>
+        </div>
+        <div class="tweets-feed">
+            {% for tweet in tweets %}
+            <div class="tweet-box">
+                <h4>
+                    <a href="{% url 'user_profile' tweet.user.id %}">
+                    @{{tweet.user.username}}
+                    </a>
+                </h4>
+                <p>{{tweet.body}}</p>
+                <p>{{tweet.updated}}</p>
+                <p>Likes: {{tweet.likes.count}} Retweets: {{tweet.retweets.count}}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

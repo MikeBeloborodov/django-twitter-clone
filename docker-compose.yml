@@ -1,0 +1,22 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 123123
+      POSTGRES_USER: user123
+      POSTGRES_DB: db01
+      POSTGRES_INITDB_ARGS: "-A md5"
+    ports:
+      - "5432:5432"
+
+  django:
+      build: .
+      ports:
+        - "8000:8000"
+      depends_on:
+      - db
+      volumes:
+      - ./:/usr/src/app

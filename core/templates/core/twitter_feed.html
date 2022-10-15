@@ -1,0 +1,34 @@
+{% extends 'core/main.html' %}
+{% block content %}
+<div class="twitter-feed-page">
+    <div class="twitter-feed-page-title">
+        <h3>
+            Feed
+        </h3>
+        <hr>
+    </div>
+    <div class="search-from">
+        <form method="GET" action="{% url 'twitter_feed' %}">
+            <input type="text" name="q" placeholder="Search twitter..." /><br><br>
+        </form>
+    </div>
+    <div class="twitter-feed-content">
+        {% for tweet in tweets %}
+        <div class="tweet-box">
+            <h4>
+                <a href="{% url 'user_profile' tweet.user.id %}">
+                @{{tweet.user.username}}
+                </a>
+            </h4>
+            <p>{{tweet.body}}</p>
+            <p>{{tweet.updated}}</p>
+            <p>Likes: {{tweet.likes.count}} Retweets: {{tweet.retweets.count}}</p>
+            {% if request.user != tweet.user %}
+            <a href="{% url 'like_tweet' tweet.id %}">Like</a>
+            <a href="{% url 'retweet' tweet.id %}">Retweet</a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

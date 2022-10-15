@@ -1,0 +1,21 @@
+<div class="navbar">
+    {% if request.user.is_authenticated == False %}
+    <h3>
+        <a href="{% url 'login_user' %}">Login</a>
+    </h3>
+    <h3>
+        <a href="{% url 'register_user' %}">Register</a>
+    </h3>
+    {% endif %}
+    {% if request.user.is_authenticated %}
+    <h3>
+        <a href="{% url 'user_profile' user.id %}">My profile</a>
+    </h3>
+    <h3>
+        <a href="{% url 'twitter_feed' %}">Feed</a>
+    </h3>
+    <h3>
+        <a href="{% url 'logout_user' %}">Logout</a>
+    </h3>
+    {% endif %}
+</div>
